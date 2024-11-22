@@ -1,14 +1,18 @@
-﻿/// <summary>
+﻿using UnityEngine;
+
+/// <summary>
 /// Запись игрового ввода для машины с привязкой ко времени.
 /// </summary>
 public struct PlayerRecord
 {
-    public InputRecord InputRecord;
+    public Vector3 Position;
+    public Quaternion Rotation;
     public float Timestamp;
 
-    public PlayerRecord(InputRecord inputRecord, float timestamp)
+    public PlayerRecord(Vector3 position, Quaternion rotation, float timestamp)
     {
-        InputRecord = inputRecord;
+        Position = position;
+        Rotation = rotation;
         Timestamp = timestamp;
     }
 }

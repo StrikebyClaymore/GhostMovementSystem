@@ -6,7 +6,6 @@ using UnityEngine;
 /// </summary>
 public class ShadowCar : MonoBehaviour
 {
-    private SimcadeVehicleController _controller;
     private Rigidbody _rb;
     private Collider _bodyCollider;
     private LayerMask _layerMask;
@@ -17,11 +16,9 @@ public class ShadowCar : MonoBehaviour
 
     private void Awake()
     {
-        _controller = GetComponent<SimcadeVehicleController>();
         _rb = GetComponent<Rigidbody>();
         _bodyCollider = GetComponentInChildren<Collider>();
         _layerMask = LayerMask.NameToLayer("ShadowCar");
-        _controller.CanDrive = false;
         _rb.gameObject.layer = _layerMask;
         _bodyCollider.gameObject.layer = _layerMask;
     }
@@ -45,9 +42,8 @@ public class ShadowCar : MonoBehaviour
         _isMoving = true;
     }
 
-    private void StopMove()
+    public void StopMove()
     {
-        _controller.SetInput(new InputRecord(0, 0, 1));
         _isMoving = false;
     }
 
@@ -55,20 +51,13 @@ public class ShadowCar : MonoBehaviour
     {
         if (!_isMoving)
             return;
-        
         float elapsedTime = Time.time - _startTime;
-
         while (_currentRecordIndex < _records.Length - 1 && _records[_currentRecordIndex + 1].Timestamp < elapsedTime)
-        {
             _currentRecordIndex++;
-        }
-        
+        var record = _records[_currentRecordIndex];
+        _rb.position = record.Position;
+        _rb.rotation = record.Rotation;
         if (_currentRecordIndex == _records.Length - 1)
-        {
             StopMove();
-            return;
-        }
-        
-        _controller.SetInput(_records[_currentRecordIndex + 1].InputRecord);
     }
 }

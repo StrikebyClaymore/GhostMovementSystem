@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         _playerRecorder.Update();
     }
-
+    
     private void InitRace()
     {
         _firstRound = true;
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
         _shadowCar = Instantiate(_shadowCarPrefab).AddComponent<ShadowCar>();
     }
     
+    [ContextMenu("PlayerAllCheckpointsReached")]
     private void PlayerAllCheckpointsReached()
     {
         _playerCar.Enable(false);

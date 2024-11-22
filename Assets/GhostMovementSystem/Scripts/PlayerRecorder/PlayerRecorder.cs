@@ -20,9 +20,9 @@ public class PlayerRecorder
     {
         if(!_isRecording)
             return;
-        _records.Add(new PlayerRecord(_player.GetInput(), Time.time - _startTime));
+        _records.Add(new PlayerRecord(_player.transform.position, _player.transform.rotation, Time.time - _startTime));
     }
-    
+
     public void StartRecording()
     {
         _startTime = Time.time;

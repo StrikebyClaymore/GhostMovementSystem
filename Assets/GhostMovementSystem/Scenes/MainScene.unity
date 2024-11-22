@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1708,7 +1709,6 @@ Terrain:
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
-  m_HeightmapMinimumLODSimplification: 0
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
@@ -3569,7 +3569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startPoint: {fileID: 99352062}
   _carPrefab: {fileID: 147520205750253630, guid: 8b54fadaccf33034c839cd643d17cf2f, type: 3}
-  _shadowCarPrefab: {fileID: 8445288362873774787, guid: 93b2e478afc00ac448ea038153c003b1, type: 3}
+  _shadowCarPrefab: {fileID: 921960936136191355, guid: 93b2e478afc00ac448ea038153c003b1, type: 3}
   _playerCameraPrefab: {fileID: 3079475238130281327, guid: 26f5f168b98ea764e8db2eaf02e34a14, type: 3}
   _checkpointManager: {fileID: 1577536638}
   _startTimer: {fileID: 1228453534}
