@@ -51,14 +51,13 @@ public class ShadowCar : MonoBehaviour
         _isMoving = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!_isMoving)
             return;
         
         float elapsedTime = Time.time - _startTime;
-        _currentRecordIndex++;
-        
+
         while (_currentRecordIndex < _records.Length - 1 && _records[_currentRecordIndex + 1].Timestamp < elapsedTime)
         {
             _currentRecordIndex++;
