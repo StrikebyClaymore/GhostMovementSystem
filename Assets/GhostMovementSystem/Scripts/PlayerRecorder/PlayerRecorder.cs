@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// Записывает игровые инпуты с привязкой ко времени для последующдей передачи в теневую машину.
@@ -7,8 +6,7 @@ using UnityEngine;
 public class PlayerRecorder : IFixedUpdate
 {
     private readonly PlayerCar _player;
-    private readonly List<PlayerRecord> _records = new List<PlayerRecord>();
-    private float _startTime;
+    private readonly List<InputRecord> _records = new ();
     private bool _isRecording;
     
     public PlayerRecorder(PlayerCar player)
@@ -20,12 +18,11 @@ public class PlayerRecorder : IFixedUpdate
     {
         if(!_isRecording)
             return;
-        _records.Add(new PlayerRecord(_player.GetInput(), Time.time - _startTime));
+        _records.Add(_player.GetInput());
     }
     
     public void StartRecording()
     {
-        _startTime = Time.time;
         _isRecording = true;
     }
     
@@ -34,7 +31,7 @@ public class PlayerRecorder : IFixedUpdate
         _isRecording = false;
     }
 
-    public PlayerRecord[] GetRecords()
+    public InputRecord[] GetRecords()
     {
         return _records.ToArray();
     }

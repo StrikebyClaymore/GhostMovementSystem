@@ -10,9 +10,8 @@ public class ShadowCar : MonoBehaviour, IFixedUpdate
     private Rigidbody _rb;
     private Collider _bodyCollider;
     private LayerMask _layerMask;
-    private PlayerRecord[] _records;
+    private InputRecord[] _records;
     private int _currentRecordIndex;
-    private float _startTime;
     private bool _isMoving;
 
     private void Awake()
@@ -32,7 +31,7 @@ public class ShadowCar : MonoBehaviour, IFixedUpdate
         _rb.rotation = rotation;
     }
 
-    public void SetRecords(PlayerRecord[] records)
+    public void SetRecords(InputRecord[] records)
     {
         _records = records;
         Debug.Log(records.Length);
@@ -41,7 +40,6 @@ public class ShadowCar : MonoBehaviour, IFixedUpdate
     public void StartMove()
     {
         _currentRecordIndex = 0;
-        _startTime = Time.time;
         _isMoving = true;
     }
 
@@ -59,20 +57,14 @@ public class ShadowCar : MonoBehaviour, IFixedUpdate
             return;
         }
         
-        float elapsedTime = Time.time - _startTime;
-
-        while (_currentRecordIndex < _records.Length - 1 && _records[_currentRecordIndex + 1].Timestamp < elapsedTime)
-        {
-            _currentRecordIndex++;
-        }
+        _controller.SetInput(_records[_currentRecordIndex]);
+        _controller.CustomFixedUpdate();
         
-        if (_currentRecordIndex == _records.Length - 1)
+        _currentRecordIndex++;
+        
+        if (_currentRecordIndex == _records.Length)
         {
             StopMove();
-            return;
         }
-        
-        _controller.SetInput(_records[_currentRecordIndex + 1].InputRecord);
-        _controller.CustomFixedUpdate();
     }
 }
