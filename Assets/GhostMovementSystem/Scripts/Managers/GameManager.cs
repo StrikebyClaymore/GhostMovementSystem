@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayerCar _playerCar;
     private ShadowCar _shadowCar;
     private PlayerRecorder _playerRecorder;
+    private List<IFixedUpdate> _fixedUpdates = new List<IFixedUpdate>();
     private bool _firstRound;
 
     private void Start()
@@ -33,9 +35,12 @@ public class GameManager : MonoBehaviour
         InitRace();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _playerRecorder.Update();
+        for (int i = _fixedUpdates.Count - 1; i >= 0; i--)
+        {
+            _fixedUpdates[i].CustomFixedUpdate();
+        }
     }
 
     private void InitRace()
@@ -100,11 +105,14 @@ public class GameManager : MonoBehaviour
         Instantiate(_playerCameraPrefab, car.transform);
         _playerCar = car.AddComponent<PlayerCar>();
         _playerRecorder = new PlayerRecorder(_playerCar);
+        _fixedUpdates.Add(_playerCar);
+        _fixedUpdates.Add(_playerRecorder);
     }
     
     private void SpawnShadow()
     {
         _shadowCar = Instantiate(_shadowCarPrefab).AddComponent<ShadowCar>();
+        _fixedUpdates.Add(_shadowCar);
     }
     
     private void PlayerAllCheckpointsReached()

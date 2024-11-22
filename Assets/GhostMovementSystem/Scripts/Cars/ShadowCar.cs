@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Скрипт управления теневой машиной.
 /// </summary>
-public class ShadowCar : MonoBehaviour
+public class ShadowCar : MonoBehaviour, IFixedUpdate
 {
     private SimcadeVehicleController _controller;
     private Rigidbody _rb;
@@ -51,10 +51,13 @@ public class ShadowCar : MonoBehaviour
         _isMoving = false;
     }
 
-    private void Update()
+    public void CustomFixedUpdate()
     {
         if (!_isMoving)
+        {
+            _controller.CustomFixedUpdate();
             return;
+        }
         
         float elapsedTime = Time.time - _startTime;
 
@@ -70,5 +73,6 @@ public class ShadowCar : MonoBehaviour
         }
         
         _controller.SetInput(_records[_currentRecordIndex + 1].InputRecord);
+        _controller.CustomFixedUpdate();
     }
 }

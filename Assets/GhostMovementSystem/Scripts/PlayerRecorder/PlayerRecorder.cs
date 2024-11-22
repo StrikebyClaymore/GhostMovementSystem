@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Записывает игровые инпуты с привязкой ко времени для последующдей передачи в теневую машину.
 /// </summary>
-public class PlayerRecorder
+public class PlayerRecorder : IFixedUpdate
 {
     private readonly PlayerCar _player;
     private readonly List<PlayerRecord> _records = new List<PlayerRecord>();
@@ -16,7 +16,7 @@ public class PlayerRecorder
         _player = player;
     }
 
-    public void Update()
+    public void CustomFixedUpdate()
     {
         if(!_isRecording)
             return;

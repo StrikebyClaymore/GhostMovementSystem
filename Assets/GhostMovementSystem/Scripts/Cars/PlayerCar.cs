@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Скрипт управления машиной игрока.
 /// </summary>
-public class PlayerCar : MonoBehaviour
+public class PlayerCar : MonoBehaviour, IFixedUpdate
 {
     private SimcadeVehicleController _controller;
     private CinemachineVirtualCamera _camera;
@@ -50,5 +50,10 @@ public class PlayerCar : MonoBehaviour
     public InputRecord GetInput()
     {
         return _cachedInput;
+    }
+
+    public void CustomFixedUpdate()
+    {
+        _controller.CustomFixedUpdate();
     }
 }

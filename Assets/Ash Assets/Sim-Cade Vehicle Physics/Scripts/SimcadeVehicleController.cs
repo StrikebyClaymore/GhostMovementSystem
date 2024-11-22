@@ -93,7 +93,7 @@ namespace Ashsvp
         public float[] forwardSlip = new float[4], slipCoeff = new float[4], skidTotal = new float[4];
         private WheelSkid[] wheelSkids = new WheelSkid[4];
 
-
+        
         void Awake()
         {
             GameObject SkidMarkController_Self = Instantiate(SkidMarkController);
@@ -136,7 +136,7 @@ namespace Ashsvp
             brakeInput = input.BrakeInput;
         }
 
-        void FixedUpdate()
+        public void CustomFixedUpdate()
         {
             localVehicleVelocity = transform.InverseTransformDirection(rb.velocity);
 
